@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
 import requests
 import random
 import re
@@ -9,8 +12,12 @@ from keyboard import *
 from func import *
 from lk import *
 from dbworker import *
+
 ans = Constants
-vk_session = vk_api.VkApi(token="94376fff72067ddeb1eae787cceff0a590d5fe5bb8d4c11e047b4e9bc89b1a274c6f83f467194058ef684")
+
+token = os.environ.get('TOKEN_SGSPU')
+
+vk_session = vk_api.VkApi(token=token)
 
 longpoll = VkLongPoll(vk_session)
 
@@ -811,8 +818,25 @@ while True:
                 if (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) != 0):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message='Расписание группы '+mygroup+': ',
+                        message='Меню студента группы '+mygroup+': ',
                         keyboard=enable_keyboard_my(),
+                        random_id=random_id()
+                    )
+                elif (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) == 0):
+                    vk.messages.send(
+                        user_id=event.user_id,
+                        message=dictReg,
+                        keyboard=enable_keyboard_my(),
+                        random_id=random_id()
+                    )
+                else:
+                    elsereg()
+            elif event.text in ('📋 Посмотреть'):
+                if (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) != 0):
+                    vk.messages.send(
+                        user_id=event.user_id,
+                        message='Выберите день '+mygroup+': ',
+                        keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
                 elif (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) == 0):
