@@ -3,11 +3,12 @@ from dbworker import *
 
 def enable_keyboard_my(geo_button=False):
     keyboard = VkKeyboard(False)
-    keyboard.add_button('📋 Расписание '+get_user_group(183173666), VkKeyboardColor.POSITIVE)
+    keyboard.add_button('📋 Расписание '+get_user_group(183173666), VkKeyboardColor.DEFAULT)
     keyboard.add_line()
     keyboard.add_button('👥 Моя группа', VkKeyboardColor.POSITIVE)
+    keyboard.add_button('📋 Посмотреть', VkKeyboardColor.POSITIVE)
     keyboard.add_line()
-    keyboard.add_button('⏳ Какая сейчас пара?', VkKeyboardColor.POSITIVE)
+    keyboard.add_button('⏳ Какая сейчас пара?', VkKeyboardColor.PRIMARY)
     keyboard.add_button('📅 Неделя', VkKeyboardColor.PRIMARY)
     keyboard.add_line()
     keyboard.add_button('Вернуться назад к главной', VkKeyboardColor.NEGATIVE)
