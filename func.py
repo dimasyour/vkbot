@@ -1,13 +1,12 @@
 import datetime
 from openpyxl import load_workbook
 from datetime import datetime as dt
-
 import openpyxl
 wb = openpyxl.load_workbook(filename='raspisanie.xlsx')
 # Функция, чтобы узнать какая учебная неделя из экселя 
 def checkWeek():
     wb1 = load_workbook('weeks.xlsx')
-    sheet_ranges = wb['sheet1']
+    sheet_ranges = wb1['sheet1']
     column_d = sheet_ranges['D']
     column_c = sheet_ranges['C']
     weeksTodayStr = datetime.datetime.now()
@@ -24,7 +23,7 @@ def checkWeek():
 # Функция сообщения для кнопки НЕДЕЛЯ
 def weekFull():
     wb1 = load_workbook('weeks.xlsx')
-    sheet_ranges = wb['sheet1']
+    sheet_ranges = wb1['sheet1']
     column_d = sheet_ranges['D']
     column_c = sheet_ranges['C']
     column_g = sheet_ranges['G']
@@ -52,8 +51,6 @@ def weekFull():
         elif column_d[i].value == None:
             break
     return 'Сечас идёт '+str(week)+'-ая неделя'+'\nНачалась: '+str(week1)+'\nЗакончится: '+str(week2)
-
-
 
 #2 - показать сколько осталось, 1 - название пары
 def para(choose):
@@ -97,7 +94,7 @@ def para(choose):
 
 def get_mon(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['A']
     vals = []
     for i in range(len(column_mon)):
@@ -105,11 +102,9 @@ def get_mon(group):
             vals.append(column_mon[i].value)
     return '\n'.join(map(str, vals))
 
-#get_mon('фмфи-б18пио')
-
 def get_tue(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['B']
     vals = []
     for i in range(len(column_mon)):
@@ -120,7 +115,7 @@ def get_tue(group):
 
 def get_wed(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['C']
     vals = []
     for i in range(len(column_mon)):
@@ -130,7 +125,7 @@ def get_wed(group):
 
 def get_thu(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['D']
     vals = []
     for i in range(len(column_mon)):
@@ -140,7 +135,7 @@ def get_thu(group):
 
 def get_fri(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['E']
     vals = []
     for i in range(len(column_mon)):
@@ -150,7 +145,7 @@ def get_fri(group):
 
 def get_sab(group):
     sheet = group
-    ws = wb[sheet]
+    ws = wb[sheet.lower()]
     column_mon = ws['F']
     vals = []
     for i in range(len(column_mon)):

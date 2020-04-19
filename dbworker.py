@@ -12,11 +12,10 @@ def check_if_exists(user_id):
 
 
 def register_new_user(user_id):
+    c.execute("INSERT INTO user_info(user_id, user_wish, user_admin, user_group) VALUES (%d, 0, 0, 0)" % user_id)
+    conn.commit()
     c.execute("INSERT INTO users(user_id, state) VALUES (%d, '')" % user_id)
     conn.commit()
-    c.execute("INSERT INTO user_info(user_id, user_wish, admin, user_group) VALUES (%d, 0, 0, 0)" % user_id)
-    conn.commit()
-
 
 def get_user_state(user_id):
     c.execute("SELECT state FROM users WHERE user_id = %d" % user_id)

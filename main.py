@@ -58,17 +58,14 @@ def elsereg():
 while True:
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            mygroup =get_user_group(event.user_id)
             msg = event.text.lower()
-            if not check_if_exists(event.user_id):
-                register_new_user(event.user_id)
-
             if event.text.lower() in ('/help', 'начать', 'вернуться назад к главной'):
-                if get_admin_status(event.user_id) == 1:
+                if (check_if_exists(event.user_id) == False):
+                    register_new_user(event.user_id)
                     vk.messages.send(
                         user_id=event.user_id,
                         message=dictStart,
-                        keyboard=enable_keyboard_start_admin(),
+                        keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
                 else:
@@ -78,7 +75,6 @@ while True:
                         keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
-
             elif event.text.lower() == "регистрация":
                 if get_user_wish(event.user_id) == 0:
                     set_user_wish(event.user_id, 1)
@@ -691,14 +687,14 @@ while True:
                         random_id=random_id()
                     )
             elif re.match(r'Моя группа', event.text):
-                    mygroup_parse = re.split(r':', event.text)
+                    mygroup_parse = re.split(r': ', event.text)
                     print(mygroup_parse)
                     user_group = mygroup_parse[1]
                     set_user_group(event.user_id,user_group)
                     vk.messages.send(
                         user_id=event.user_id,
                         message='Твоя группа - %s' % user_group + '\nуспешно обновленна в базе!',
-                        keyboard=enable_keyboard_my(),
+                        keyboard=enable_keyboard_my(event.user_id),
                         random_id=random_id()
                     )
             elif event.text.lower() in ('/week', '🗓 неделя','/неделя','недели','/weeks'):
@@ -714,7 +710,7 @@ while True:
                     vk.messages.send(
                         user_id=event.user_id,
                         message=''+weekFull(),
-                        keyboard=enable_keyboard_my(),
+                        keyboard=enable_keyboard_my(event.user_id),
                         random_id=random_id()
                     )
             elif event.text.lower() in ('/админ', 'админ','/admin','администратор','admin','админ-панель'):
@@ -745,14 +741,14 @@ while True:
                     vk.messages.send(
                         user_id=event.user_id,
                         message='Твоя группа: '+get_user_group(event.user_id),
-                        keyboard=enable_keyboard_my(),
+                        keyboard=enable_keyboard_my(event.user_id),
                         random_id=random_id()
                     )
                 elif (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) == 0):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message=dictReg,
-                        keyboard=enable_keyboard_my(),
+                        message='Вы не добавили группу!\nЧтобы это сделать, введите группу\nДля этого введите фразу и вашу группу, пример ниже:\n\n Моя группа: ФМФИ-б18ПИо',
+                        keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
             elif event.type == VkEventType.MESSAGE_NEW and event.to_me and ((re.match(r"\w\w\w\w-\w\d\d\w\w\w" ,event.text)) or (re.match(r"\w\w\w\w-\w\d\d\w\w" ,event.text))):
@@ -764,6 +760,7 @@ while True:
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
+                    mygroup=get_user_group(event.user_id)
             elif event.text.lower() in ('пн', 'вт','ср','чт','пт','сб'):
                 if (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) != 0):
                     vk.messages.send(
@@ -818,8 +815,8 @@ while True:
                 if (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) != 0):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message='Меню студента группы '+mygroup+': ',
-                        keyboard=enable_keyboard_my(),
+                        message='Меню студента группы '+get_user_group(event.user_id)+': ',
+                        keyboard=enable_keyboard_my(event.user_id),
                         random_id=random_id()
                     )
                 elif (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) == 0):
@@ -835,15 +832,15 @@ while True:
                 if (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) != 0):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message='Выберите день '+mygroup+': ',
+                        message='Выберите день '+get_user_group(event.user_id)+': ',
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
                 elif (get_user_wish(event.user_id) == 1) and (get_user_group(event.user_id) == 0):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message=dictReg,
-                        keyboard=enable_keyboard_my(),
+                        message="Вы не добавили группу!\nЧтобы это сделать, введите группу\nДля этого введите фразу и вашу группу, пример ниже:\n\n Моя группа: ФМФИ-б18ПИо",
+                        keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
                 else:
