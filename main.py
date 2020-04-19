@@ -775,7 +775,7 @@ while True:
                     elif (event.text == 'ВТ' or event.text == 'вт'):
                         vk.messages.send(
                         user_id=event.user_id,
-                        message=get_mon(get_user_group(event.user_id)),
+                        message=get_tue(get_user_group(event.user_id)),
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
@@ -786,24 +786,24 @@ while True:
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
-                   elif (event.text == 'ЧТ' or event.text == 'чт'):
+                    elif (event.text == 'ЧТ' or event.text == 'чт'):
                         vk.messages.send(
                         user_id=event.user_id,
-                        message=get_mon(get_user_group(event.user_id)),
+                        message=get_thu(get_user_group(event.user_id)),
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
-                   elif (event.text == 'ПТ' or event.text == 'пт'):
+                    elif (event.text == 'ПТ' or event.text == 'пт'):
                         vk.messages.send(
                         user_id=event.user_id,
-                        message=get_mon(get_user_group(event.user_id)),
+                        message=get_fri(get_user_group(event.user_id)),
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
-                   elif (event.text == 'СБ' or event.text == 'сб'):
+                    elif (event.text == 'СБ' or event.text == 'сб'):
                         vk.messages.send(
                         user_id=event.user_id,
-                        message=get_mon(get_user_group(event.user_id)),
+                        message=get_sab(get_user_group(event.user_id)),
                         keyboard=enable_keyboard_week(event.user_id),
                         random_id=random_id()
                     )
