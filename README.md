@@ -9,7 +9,7 @@ SGSPU Schedule Bot - сервис для студентов и преподав�
     - Find your group and find out information about it
 
 ### Getting started:
-1. Join the VKontakte community **vk.com/ped_63** and write to the group’s private messages.
+1. Join the VKontakte community **vk.com/ped63** and write to the group’s private messages.
 2. Use [this](https://vk.com/ped63) link
 
 > Тут будет красивое описание, которое
