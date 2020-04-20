@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime
-conn = sqlite3.connect("db.db")
+conn = sqlite3.connect("bot.db")
 print('БД подключена...')
 c = conn.cursor()
 
@@ -12,8 +12,10 @@ def check_if_exists(user_id):
     return True
 
 
-def register_new_user(user_id):
-    c.execute("INSERT INTO user_info(user_id, user_wish, user_admin, user_group) VALUES (%d, 0, 0, 0)" % user_id)
+def register_new_user(user_id, UserFirstName, UserLastName, UserCity, UserDomain, UserSex):
+    param = (user_id, 0, UserFirstName, UserLastName, UserCity, 0, UserDomain, UserSex, 0)
+    print(param)
+    c.execute("INSERT INTO user_info (user_id, user_wish, user_firstname, user_lastname, user_city, user_group, user_domain, user_sex, user_admin) VALUES (?,?,?,?,?,?,?,?,?)", param)
     conn.commit()
     c.execute("INSERT INTO users(user_id, state) VALUES (%d, '')" % user_id)
     conn.commit()

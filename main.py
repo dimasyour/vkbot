@@ -61,7 +61,15 @@ while True:
             msg = event.text.lower()
             if event.text.lower() in ('/help', 'начать', 'вернуться назад к главной'):
                 if (check_if_exists(event.user_id) == False):
-                    register_new_user(event.user_id)
+                    # получаем данные о пользователе
+                    user_data = vk.users.get(user_ids = event.user_id, fields="sex,city,domain")
+                    UserID = user_data[0]["id"]
+                    UserFirstName = user_data[0]["first_name"]
+                    UserLastName = user_data[0]["last_name"]
+                    UserSex = user_data[0]["sex"]
+                    UserCity = user_data[0]["city"]['title']
+                    UserDomain = user_data[0]["domain"]
+                    register_new_user(event.user_id, UserFirstName, UserLastName, UserCity, UserDomain, UserSex)
                     vk.messages.send(
                         user_id=event.user_id,
                         message=dictStart,
