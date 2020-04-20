@@ -21,7 +21,7 @@ SGSPU Schedule Bot - сервис для студентов и преподав�
 ```sh
 $ pip install openpyxl
 $ pip install vk_api
-$ pip install sqlite3
+$ pip install datetime
 ```
 ### Run
 ```sh
