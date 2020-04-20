@@ -670,14 +670,42 @@ while True:
                         keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
-            elif event.text.lower() in ('/ob', '📣 объявления','/объявления','объявление','/объявление'):
-                if get_user_wish(event.user_id) == 1:
+            elif event.text.lower() in ('/ob', '❗ сделать объявление', '❗ Сделать объявление','объявление','/объявление'):
+                if (get_user_wish(event.user_id) == 1) and (get_admin_status(event.user_id) == 1):
                     vk.messages.send(
                         user_id=event.user_id,
-                        message='Тут будет раздел с объявлениями: ',
+                        message='Чтобы написать сообщения всем,\nоформите сообщение по шаблону (ниже):\n !объявление: текст-текст-текст ',
+                        keyboard=enable_keyboard_admin(),
+                        random_id=random_id()
+                    )
+                elif (get_user_wish(event.user_id) == 1) and (get_admin_status(event.user_id) == 0):
+                    vk.messages.send(
+                        user_id=event.user_id,
+                        message='Нет прав доступа!',
                         keyboard=enable_keyboard_start(),
                         random_id=random_id()
                     )
+                else:
+                    elsereg()
+            elif event.text.lower() in ('/view_ob', '📣 показать объявления','показать объявления'):
+                if (get_user_wish(event.user_id) == 1):
+                    vk.messages.send(
+                        user_id=event.user_id,
+                        message=get_last_ob(),
+                        keyboard=enable_keyboard_start(),
+                        random_id=random_id()
+                    )
+            elif re.match(r'!объявление', event.text):
+                    ob_parse = re.split(r': ', event.text)
+                    print(ob_parse)
+                    ob_str = ob_parse[1]
+                    vk.messages.send(
+                        user_id=event.user_id,
+                        message='Ваше объявление %s' % ob_str + '\nуспешно добавленно в очередь!',
+                        keyboard=enable_keyboard_admin(),
+                        random_id=random_id()
+                    )
+                    add_new_ob(ob_str)
             elif event.text.lower() in ('/find_teacher', '👨‍🏫 преподаватели','/преподаватели','преподаватели','/преподаватель'):
                 if get_user_wish(event.user_id) == 1:
                     vk.messages.send(
@@ -717,7 +745,7 @@ while True:
                 if get_admin_status(event.user_id) == 1:
                     vk.messages.send(
                         user_id=event.user_id,
-                        message='Админ: '+str(event.user_id),
+                        message='Админ-панель\nВаш ID: '+str(event.user_id),
                         keyboard=enable_keyboard_start_admin(),
                         random_id=random_id()
                     )
