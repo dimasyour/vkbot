@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 conn = sqlite3.connect("db.db")
 print('БД подключена...')
 c = conn.cursor()
@@ -44,3 +45,14 @@ def get_admin_status(user_id):
 def set_user_wish(user_id, user_wish):
     c.execute("UPDATE user_info SET user_wish = %d WHERE user_id = %d" % (user_wish, user_id))
     conn.commit()
+
+def add_new_ob(text):
+    date_ob = datetime.strftime(datetime.now(), "%d-%m-%Y %H:%M")
+    c.execute("INSERT INTO ob_table(date_ob, text_ob) VALUES ('%s','%s')" % (date_ob, text))
+    conn.commit()
+
+def get_last_ob():
+    c.execute("SELECT text_ob,date_ob FROM ob_table WHERE id=(SELECT MAX(id) FROM ob_table)")
+    rows = c.fetchall()
+    for row in rows:
+        return('❗Последнее объявление: '+row[0]+'\n\nДобавленно: '+row[1])

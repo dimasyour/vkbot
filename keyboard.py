@@ -6,7 +6,7 @@ def enable_keyboard_start(geo_button=False):
     keyboard.add_button('🔔 Расписание', VkKeyboardColor.POSITIVE)
     keyboard.add_line()
     keyboard.add_button('⏲️ Звонок', VkKeyboardColor.PRIMARY)
-    keyboard.add_button('📣 Объявления', VkKeyboardColor.PRIMARY)
+    keyboard.add_button('📣 Показать объявления', VkKeyboardColor.PRIMARY)
     keyboard.add_line()
     keyboard.add_button('👨‍🏫 Преподаватели', VkKeyboardColor.PRIMARY)
     keyboard.add_button('👩‍💻 Студенты', VkKeyboardColor.PRIMARY)
@@ -16,17 +16,21 @@ def enable_keyboard_start(geo_button=False):
 
 def enable_keyboard_start_admin(geo_button=False):
     keyboard = VkKeyboard(False)
+    keyboard.add_button('Админ-панель', VkKeyboardColor.DEFAULT)
+    keyboard.add_line()
     keyboard.add_button('✅ Моё расписание', VkKeyboardColor.POSITIVE)
     keyboard.add_button('🔔 Расписание', VkKeyboardColor.POSITIVE)
     keyboard.add_line()
+    keyboard.add_button('🗓 Неделя', VkKeyboardColor.PRIMARY)
     keyboard.add_button('⏲️ Звонок', VkKeyboardColor.PRIMARY)
-    keyboard.add_button('📣 Объявления', VkKeyboardColor.PRIMARY)
+    keyboard.add_line()
+    keyboard.add_button('📣 Показать объявления', VkKeyboardColor.PRIMARY)
+    keyboard.add_line()
+    keyboard.add_button('❗ Сделать объявление', VkKeyboardColor.PRIMARY)
     keyboard.add_line()
     keyboard.add_button('👨‍🏫 Преподаватели', VkKeyboardColor.PRIMARY)
     keyboard.add_button('👩‍💻 Студенты', VkKeyboardColor.PRIMARY)
-    keyboard.add_line()
-    keyboard.add_button('🗓 Неделя', VkKeyboardColor.PRIMARY)
-    keyboard.add_button('Админ-панель', VkKeyboardColor.PRIMARY)
+
     return keyboard.get_keyboard()
 
 def enable_keyboard(geo_button=False):
